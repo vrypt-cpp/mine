@@ -1,6 +1,8 @@
-import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
+import pathfinderPkg from 'mineflayer-pathfinder';
 import { Vec3, isPositionSafe } from '../utils/helpers.js';
 import { log, logError } from '../utils/logger.js';
+
+const { pathfinder, Movements, goals } = pathfinderPkg;
 
 export const initMovement = (bot) => {
   bot.loadPlugin(pathfinder);
