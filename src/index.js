@@ -1,6 +1,6 @@
 import mineflayer from 'mineflayer';
 import { config } from './config.js';
-import { initMovement } from './modules/movement.js';
+import { initMovement, loadPathfinderPlugin } from './modules/movement.js';
 import { registerEvents } from './modules/events.js';
 import { StateManager } from './modules/state.js';
 import { decideAndAct } from './modules/brain.js';
@@ -16,12 +16,13 @@ const start = () => {
     auth: config.auth
   });
 
-  initMovement(bot);
+  loadPathfinderPlugin(bot);
   const state = new StateManager(bot);
   registerEvents(bot, state);
 
   bot.once('spawn', () => {
     log('Main', `Connected as ${bot.username} on ${config.host}:${config.port}`);
+    initMovement(bot);
     startStatsServer(bot, state, config.api.port);
     setInterval(() => {
       decideAndAct(bot, state).catch(err => logError('Loop', err));

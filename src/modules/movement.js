@@ -4,9 +4,12 @@ import { log, logError } from '../utils/logger.js';
 
 const { pathfinder, Movements, goals } = pathfinderPkg;
 
-export const initMovement = (bot) => {
+export const loadPathfinderPlugin = (bot) => {
   bot.loadPlugin(pathfinder);
-  const movements = new Movements(bot);
+};
+
+export const initMovement = (bot) => {
+  const movements = new Movements(bot, bot.registry);
   movements.canDig = true;
   movements.allowParkour = true;
   movements.allowSprinting = true;
